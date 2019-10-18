@@ -1,22 +1,22 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const path = require("path");
 
 const app = express();
-
+const PORT = 4545;
 const adminRoutes = require("./routes/admin");
+const shopRoutes = require("./routes/shop");
 
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/admin", adminRoutes);
+app.use(shopRoutes.router);
 
-app.get("/", (req, res, next) => {
-  res.send("<h1>Miracle is Here</h1>");
-});
-
-app.use("/", (req, res, next) => {
+app.use((req, res, next) => {
   res.send("<h1>Page Not Found</h1>");
 });
 
-app.listen(4545, () => {
-  console.log(`Server Started`);
+app.listen(PORT, () => {
+  console.log(`Server Started on  http://localhost:${PORT}`);
 });
