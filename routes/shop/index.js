@@ -6,6 +6,6 @@ const shopController = require("../../controllers/shop");
 router.get("/", shopController.getIndex);
 router.get("/product-list", shopController.getProduct);
 router.get("/cart", shopController.getCart);
-router.get("/checkout", shopController.getProduct);
+router.get("/checkout", shopController.getCheckout);
 
 module.exports.router = router;

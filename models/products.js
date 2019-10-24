@@ -13,8 +13,11 @@ const getDataFromFile = callback => {
   });
 };
 module.exports = class Product {
-  constructor(t) {
-    this.title = t;
+  constructor({ title, price, description, imageURL }) {
+    this.title = title;
+    this.price = price;
+    this.description = description;
+    this.imageURL = imageURL;
   }
   save() {
     getDataFromFile(products => {
