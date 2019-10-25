@@ -1,1 +1,23 @@
-[{"title":"New Book","price":"20.33","description":"Description","imageURL":"https://www.barringtonbooksretold.com/sites/barringtonbooksretold.com/files/book-club-recomendations.jpg"},{"title":"Second Book","price":"40.33","description":"Demo Description","imageURL":"https://www.dudleycourtpress.com/wp-content/uploads/2013/08/books.jpg"}]
+[
+  {
+    "id": "0.2323232",
+    "title": "Second Book",
+    "price": "40.33",
+    "description": "Demo Description",
+    "imageURL": "https://www.dudleycourtpress.com/wp-content/uploads/2013/08/books.jpg"
+  },
+  {
+    "id": "0.232309",
+    "title": "aasdsdasasdasd",
+    "price": "34",
+    "description": "asdasd asd asd asdasdas",
+    "imageURL": "https://www.barringtonbooksretold.com/sites/barringtonbooksretold.com/files/book-club-recomendations.jpg"
+  },
+  {
+    "id": "0.2321213",
+    "title": "Second Book",
+    "price": "54.93",
+    "description": "Demo Description",
+    "imageURL": "https://www.dudleycourtpress.com/wp-content/uploads/2013/08/books.jpg"
+  }
+]

@@ -15,6 +15,18 @@ main {
   margin: auto;
 }
 
+form {
+  display: inline;
+}
+
+.centered {
+  text-align: center;
+}
+
+.centered img {
+  max-width: 100%;
+}
+
 .main-header {
   width: 100%;
   height: 3.5rem;
@@ -52,16 +64,23 @@ main {
 .main-header__item a.active {
   color: #ffeb3b;
 }
+
 .mobile-nav {
   width: 30rem;
-  max-width: 90%;
   height: 100vh;
+  max-width: 90%;
   position: fixed;
-  background: #fff;
+  left: 0;
+  top: 0;
+  background: white;
   z-index: 10;
-  transform: translateX(-100%);
   padding: 2rem 1rem 1rem 2rem;
-  transition: transform 2s cubic-bezier(0.075, 0.82, 0.165, 1);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-out;
+}
+
+.mobile-nav.open {
+  transform: translateX(0);
 }
 
 .mobile-nav__item-list {
@@ -71,41 +90,56 @@ main {
   margin: 0;
   padding: 0;
 }
+
 .mobile-nav__item {
   margin: 1rem;
   padding: 0;
 }
+
 .mobile-nav__item a {
   text-decoration: none;
-  color: #000;
+  color: black;
   font-size: 1.5rem;
   padding: 0.5rem 2rem;
 }
-.mobile-nav__item a.active,
-.mobile-nav__item a:hover {
-  background-color: #00695c;
-  color: #fff;
+
+.mobile-nav__item a:active,
+.mobile-nav__item a:hover,
+.mobile-nav__item a.active {
+  background: #00695c;
+  color: white;
   border-radius: 3px;
 }
+
 #side-menu-toggle {
-  border: 1px solid #fff;
-  background: transparent;
-  display: block;
-  color: #fff;
-  cursor: pointer;
+  border: 1px solid white;
+  font: inherit;
   padding: 0.5rem;
+  display: block;
+  background: transparent;
+  color: white;
+  cursor: pointer;
 }
+
 #side-menu-toggle:focus {
   outline: none;
 }
 
+#side-menu-toggle:active,
+#side-menu-toggle:hover {
+  color: #ffeb3b;
+  border-color: #ffeb3b;
+}
+
 .backdrop {
-  width: 100%;
-  height: 100%;
   position: fixed;
-  display: none;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
   z-index: 5;
-  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
 }
 
 .grid {
@@ -150,6 +184,9 @@ main {
 }
 
 .btn {
+  display: inline-block;
+  padding: 0.25rem 1rem;
+  text-decoration: none;
   font: inherit;
   border: 1px solid #00695c;
   color: #00695c;
@@ -163,10 +200,12 @@ main {
   background-color: #00695c;
   color: white;
 }
+
 @media (min-width: 768px) {
   .main-header__nav {
     display: flex;
   }
+
   #side-menu-toggle {
     display: none;
   }

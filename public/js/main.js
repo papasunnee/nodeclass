@@ -5,12 +5,12 @@ const menuToggle = document.querySelector("#side-menu-toggle");
 function menuToggleClickHandler() {
   //   alert("Pop it up");
   backdrop.style.display = "block";
-  sideDrawer.style.transform = "translateX(0%)";
+  sideDrawer.classList.add("open");
 }
 
 function backdropClickHandler() {
   backdrop.style.display = "none";
-  sideDrawer.style.transform = "translateX(-100%)";
+  sideDrawer.classList.remove("open");
 }
 
 backdrop.addEventListener("click", backdropClickHandler);
