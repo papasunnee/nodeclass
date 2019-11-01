@@ -15,19 +15,24 @@ module.exports = class Cart {
         cart = JSON.parse(fileContent);
       }
       // analyze the cart i.e find existing product
-      const existingProduct = cart.products.find(product => product.id == id);
+      const existingProductIndex = cart.products.findIndex(
+        product => product.id == id
+      );
       let updatedProduct;
       // add new product /  increase quantity
-      if (existingProduct) {
+      if (existingProductIndex >= 0) {
+        const existingProduct = cart.products[existingProductIndex];
+        console.log(existingProduct);
         updatedProduct = { ...existingProduct };
         updatedProduct.qty = updatedProduct.qty + 1;
+        cart.products[existingProductIndex] = updatedProduct;
       } else {
         updatedProduct = { id: id, qty: 1 };
         cart.products = [...cart.products, updatedProduct];
       }
       Product.findById(id, product => {
         if (product) {
-          cart.totalPrice = cart.totalPrice + product.price;
+          cart.totalPrice = cart.totalPrice + +product.price;
           fs.writeFile(p, JSON.stringify(cart), err => {
             console.log(err);
           });

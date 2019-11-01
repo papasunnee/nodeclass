@@ -13,19 +13,39 @@ const getDataFromFile = callback => {
   });
 };
 module.exports = class Product {
-  constructor({ title, price, description, imageURL }) {
+  constructor({ id, title, price, description, imageURL }) {
+    this.id = id;
     this.title = title;
     this.price = price;
     this.description = description;
     this.imageURL = imageURL;
   }
   save() {
-    this.id = Math.random();
     getDataFromFile(products => {
-      products.push(this);
-      fs.writeFile(p, JSON.stringify(products), err => {
-        console.log(err);
-      });
+      if (this.id) {
+        const existingProductIndex = products.findIndex(
+          prod => prod.id == this.id
+        );
+        const updatedProducts = [...products];
+        const existingProduct = updatedProducts[existingProductIndex];
+        if (existingProduct) {
+          // console.log("this", this);
+          updatedProducts[existingProductIndex] = this;
+          fs.writeFile(p, JSON.stringify(updatedProducts), err => {
+            if (!err) {
+              console.log("Product Updated Successfully");
+            } else {
+              console.log(err);
+            }
+          });
+        }
+      } else {
+        this.id = Math.random();
+        products.push(this);
+        fs.writeFile(p, JSON.stringify(products), err => {
+          console.log(err);
+        });
+      }
     });
   }
   static fetchAll(callback) {
