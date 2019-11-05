@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
 
-const mongoConnect = require("./util/database");
+const { mongoConnect } = require("./util/database");
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 const { get404 } = require("./controllers/error");
@@ -26,7 +26,6 @@ app.use(shopRoutes.router);
 app.use(get404);
 
 mongoConnect(client => {
-  // console.log(client);
   app.listen(PORT, () => {
     console.log(`Server Started on  http://localhost:${PORT}`);
   });
