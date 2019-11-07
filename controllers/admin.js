@@ -48,10 +48,18 @@ exports.postEditProduct = (req, res, next) => {
 };
 
 exports.postAddProduct = (req, res, next) => {
+  const userId = req.user._id;
   const { title, price, imageURL, description } = req.body;
-  const product = new Product({ title, price, imageURL, description });
-  product.save();
-  res.redirect("/");
+  const product = new Product({ title, price, imageURL, description, userId });
+  product
+    .save()
+    .then(result => {
+      console.log("Product Created Successfully");
+      res.redirect("/");
+    })
+    .catch(err => {
+      console.log(err);
+    });
 };
 
 exports.getProducts = (req, res, next) => {
@@ -68,8 +76,11 @@ exports.getProducts = (req, res, next) => {
 
 exports.postDeleteProduct = (req, res, next) => {
   const { productId } = req.body;
-  Product.deleteById(productId, message => {
-    console.log(message);
-    res.redirect("/admin/products");
-  });
+  Product.deleteById(productId)
+    .then(result => {
+      res.redirect("/admin/products");
+    })
+    .catch(err => {
+      console.log(err);
+    });
 };

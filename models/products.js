@@ -2,11 +2,12 @@ const mongodb = require("mongodb");
 const { getDb } = require("../util/database");
 
 module.exports = class Product {
-  constructor({ title, price, description, imageURL, _id }) {
+  constructor({ title, price, description, imageURL, _id, userId }) {
     this.title = title;
     this.price = price;
     this.description = description;
     this.imageURL = imageURL;
+    this.userId = userId;
     this._id = _id ? new mongodb.ObjectID(_id) : null;
   }
 
@@ -23,7 +24,9 @@ module.exports = class Product {
       dbOp = db.collection("products").insertOne(this);
     }
     return dbOp
-      .then(result => console.log(result))
+      .then(result => {
+        return result;
+      })
       .catch(err => console.log(err));
   }
   static fetchAll() {
@@ -49,6 +52,21 @@ module.exports = class Product {
         return product;
       })
       .catch(e => clg(e));
+    return dbOp;
+  }
+
+  static deleteById(prodId) {
+    const db = getDb();
+    const dbOp = db
+      .collection("products")
+      .deleteOne({ _id: new mongodb.ObjectID(prodId) })
+      .then(result => {
+        return result;
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
     return dbOp;
   }
 };
