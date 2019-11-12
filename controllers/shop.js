@@ -39,37 +39,56 @@ exports.getProduct = (req, res, next) => {
 };
 
 exports.getCart = (req, res, next) => {
-  Cart.getCart(cart => {
-    console.log(cart);
-    if (!cart) {
-      return res.render("shop/cart", {
-        pageTitle: "Your Cart",
-        path: "/cart",
-        products: []
-      });
-    }
-    Product.fetchAll(products => {
-      const cartProducts = [];
-      for (product of products) {
-        const cartProductData = cart.products.find(
-          prod => prod.id == product.id
-        );
-        if (cartProductData) {
-          cartProducts.push({ productData: product, qty: cartProductData.qty });
-        }
-      }
+  req.user
+    .getCart()
+    .then(cart => {
       res.render("shop/cart", {
         pageTitle: "Your Cart",
         path: "/cart",
-        products: cartProducts
+        products: cart
       });
+    })
+    .catch(err => {
+      console.log(err);
     });
-  });
+  // Cart.getCart(cart => {
+  //   console.log(cart);
+  //   if (!cart) {
+  //     return res.render("shop/cart", {
+  //       pageTitle: "Your Cart",
+  //       path: "/cart",
+  //       products: []
+  //     });
+  //   }
+  //   Product.fetchAll(products => {
+  //     const cartProducts = [];
+  //     for (product of products) {
+  //       const cartProductData = cart.products.find(
+  //         prod => prod.id == product.id
+  //       );
+  //       if (cartProductData) {
+  //         cartProducts.push({ productData: product, qty: cartProductData.qty });
+  //       }
+  //     }
+  //     res.render("shop/cart", {
+  //       pageTitle: "Your Cart",
+  //       path: "/cart",
+  //       products: cartProducts
+  //     });
+  //   });
+  // });
 };
 
 exports.postCart = (req, res, next) => {
   const { productId, productPrice } = req.body;
-  Cart.addProduct(productId, productPrice);
+  req.user
+    .addToCart(productId)
+    .then(result => {
+      console.log(`Cart Successfully Updated`);
+    })
+    .catch(err => {
+      console.log(`Error updating Cart ${err}`);
+    });
   res.redirect("/");
 };
 
